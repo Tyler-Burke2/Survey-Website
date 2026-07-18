@@ -1,6 +1,6 @@
 CREATE TABLE Users (
-    user_id BIGINT PRIMARY KEY,
-    username VARCHAR(50),
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
     age TINYINT,
     gender VARCHAR(50),
     race VARCHAR(50),
@@ -12,18 +12,21 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Question (
-    question_id BIGINT PRIMARY KEY,
-    question_text VARCHAR(500),
-    date_posted DATE,
+    question_id INT PRIMARY KEY AUTO_INCREMENT,
+    question_text VARCHAR(500) NOT NULL,
+    date_posted DATE NOT NULL,
     is_active BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE Answer (
-    answer_id BIGINT PRIMARY KEY,
-    answer_text VARCHAR(100),
-    question_id BIGINT,
-    user_id BIGINT,
-    time_submitted DATETIME,
-)
+    answer_id INT PRIMARY KEY AUTO_INCREMENT,
+    answer_text VARCHAR(100) NOT NULL,
+    question_id INT NOT NULL,
+    user_id INT NOT NULL,
+    time_submitted DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(question_id) REFERENCES Question(question_id),
+    FOREIGN KEY(user_id) REFERENCES Users(user_id)
+);
 
 -- CREATE FOREIGN KEYS
