@@ -1,3 +1,6 @@
+CREATE DATABASE survey_site;
+USE survey_site;
+
 CREATE TABLE Users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -25,8 +28,8 @@ CREATE TABLE Answer (
     user_id INT NOT NULL,
     time_submitted DATETIME DEFAULT CURRENT_TIMESTAMP,
 
-    FOREIGN KEY(question_id) REFERENCES Question(question_id),
-    FOREIGN KEY(user_id) REFERENCES Users(user_id)
+    FOREIGN KEY(question_id) REFERENCES Question(question_id) ON DELETE CASCADE,
+    FOREIGN KEY(user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    
+    UNIQUE (question_id, user_id)
 );
-
--- CREATE FOREIGN KEYS
